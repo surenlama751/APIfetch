@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API</title>
+  <script src="index.js"></script>
+</head>
+<body>
+
+<select id = "country-name">
+  </select>
+  <p id="ok"></p>
+</body>
+<script>
+  function fetchWeather(url){
+    fetch(url)
+    .then(res => {
+      
+      return res.json();
+    })
+    .then(data =>{
+      console.log(data);
+      data.map(user =>{
+        finalResult = `
+          <option value = "${user.temperatureC}">${user.date}</option>
+          
+        `;
+       
+        document.querySelector('select').insertAdjacentHTML('beforeend', finalResult);
+      });
+    })
+  }
+
+  fetchWeather('weather.json');
+
+  document.querySelector('select').addEventListener('change', function(){
+    document.querySelector('p').textContent = `The temperature in the date in celcius is: ${this.value} degree C`;
+    
+  })
+</script>
